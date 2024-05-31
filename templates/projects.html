@@ -1,0 +1,12 @@
+{% for project in projects %}
+<div 
+  class="m-2 p-2 shadow-md"
+  hx-get="/project/{{loop.index0}}"
+  hx-target="#content"
+  hx-push-url="true"
+>
+  <div class="text-2xl">{{project.title}}</div>
+  <div>{{ project.github_link }}</div>
+  <div>{{ project.content|truncate(200) }}</div>
+</div>
+{% endfor %}

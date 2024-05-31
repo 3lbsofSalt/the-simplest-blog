@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}Buckets of Salt{% endblock %}
+{% block content %}
+
+<div hx-get="{{ start_link }}" hx-trigger="load" hx-swap="outerHTML"></div>
+
+{% endblock %}

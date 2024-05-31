@@ -1,0 +1,17 @@
+[package]
+name = "the-simplest-blog"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.84"
+askama = "0.12.1"
+axum = "0.7.5"
+json = "0.12.4"
+markdown = "1.0.0-alpha.17"
+tokio = { version = "1.37.0", features = ["full"]}
+tower = "0.4.13"
+tower-http = { version = "0.5.2", features = ["fs"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+

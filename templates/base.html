@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="/assets/main.css" rel="stylesheet" />
+    <link href="/assets/Chakra_Petch/ChakraPetch.css" rel="stylesheet" />
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+
+    <script src="/assets/htmx.min.js"></script>
+
+    {% block head %}{% endblock %}
+  </head>
+  <body hx-boost="true">
+    <div 
+      class="bg-green-800 min-h-screen h-full flex justify-center"
+    >
+      <div
+        class="max-w-screen-lg w-full bg-neutral-800 m-4 text-white"
+      >
+        <div class="text-6xl text-center my-4">Buckets of Salt</div>
+        <div class="flex justify-around w-full">
+          <div
+            hx-get="/posts"
+            hx-target="#content"
+            hx-push-url="true"
+          >Posts</div>
+          <div
+            hx-get="/projects"
+            hx-target="#content"
+            hx-push-url="true"
+          >Projects</div>
+          <div
+            hx-get="/about"
+            hx-target="#content"
+            hx-push-url="true"
+          >About</div>
+        </div>
+        <div id="content">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
