@@ -1,6 +1,6 @@
 use std::fs;
 
-use markdown;
+use markdown::{self, CompileOptions, Options};
 
 use anyhow::Context;
 use askama::Template;
@@ -78,11 +78,11 @@ async fn index() -> impl IntoResponse {
 
 struct Post {
     id: String,
-    file: String,
     title: String,
     content: String,
     tags: Vec<String>,
-    publish_date: String
+    publish_date: String,
+    thumbnail: Option<String>
 }
 
 #[derive(Template)]
@@ -92,24 +92,29 @@ struct PostTemplate {
 }
 
 async fn post(Path(id): Path<String>, headers: HeaderMap) -> impl IntoResponse {
-    println!("ID: {}", id);
     if headers.contains_key("HX-Request") {
         let post_index: String = fs::read_to_string("posts/index.json").unwrap();
         let mut post_index = json::parse(post_index.as_str()).unwrap();
 
         let post_reference = post_index["posts"].members_mut().find(|post| post["id"].as_str().unwrap().eq(&id)).unwrap();
-        println!("{:?}", post_reference);
         let content = fs::read_to_string(format!("posts/{}", post_reference["file"])).unwrap();
         let post = Post {
             id: post_reference["id"].take_string().unwrap(),
-            file: post_reference["file"].take_string().unwrap(),
             title: post_reference["title"].take_string().unwrap(),
             content: markdown::to_html_with_options(
                 &content.as_str(),
-                &markdown::Options::gfm()
+                &Options {
+                    compile: CompileOptions {
+                        allow_dangerous_html: true,
+                        allow_dangerous_protocol: true,
+                        ..CompileOptions::default()
+                    },
+                    ..markdown::Options::gfm()
+                }
             ).unwrap(),
-            tags: vec![],
-            publish_date: post_reference["publish date"].take_string().unwrap()
+            thumbnail: post_reference["thumbnail"].take_string(),
+            tags: post_reference["tags"].members_mut().map(|tag| { tag["name"].take_string().unwrap() }).collect(),
+            publish_date: post_reference["publish_date"].take_string().unwrap()
         };
 
         let template = PostTemplate { post };
@@ -138,11 +143,11 @@ async fn posts(headers: HeaderMap) -> impl IntoResponse {
             let content = fs::read_to_string(format!("posts/{}", post["file"])).unwrap();
             let temp_post = Post { 
                 id: post["id"].take_string().unwrap(),
-                file: post["file"].take_string().unwrap(),
                 title: post["title"].take_string().unwrap(), 
                 content: content.to_string(),
-                tags: vec![],
-                publish_date: post["publish date"].take_string().unwrap()
+                tags: post["tags"].members_mut().map(|tag| { tag["name"].take_string().unwrap() }).collect(),
+                publish_date: post["publish_date"].take_string().unwrap(),
+                thumbnail: post["thumbnail"].take_string()
             };
             posts.push(temp_post);
         }
@@ -163,7 +168,7 @@ struct Project {
     github_link: String,
     title: String,
     content: String,
-    file: String
+    thumbnail: Option<String>
 }
 
 
@@ -182,13 +187,13 @@ async fn project(Path(id): Path<String>, headers: HeaderMap) -> impl IntoRespons
         let content = fs::read_to_string(format!("projects/{}", project_reference["file"])).unwrap();
         let project = Project {
             id: project_reference["id"].take_string().unwrap(),
-            file: project_reference["file"].take_string().unwrap(),
             github_link: project_reference["github_link"].take_string().unwrap(),
             title: project_reference["title"].take_string().unwrap(),
             content: markdown::to_html_with_options(
                 &content.as_str(), 
                 &markdown::Options::gfm()
-            ).unwrap()
+            ).unwrap(),
+            thumbnail: project_reference["thumbnail"].take_string(),
         };
 
         let template = ProjectTemplate { project };
@@ -216,10 +221,10 @@ async fn projects(headers: HeaderMap) -> impl IntoResponse {
             let content = fs::read_to_string(format!("projects/{}", project["file"])).unwrap();
             let temp_project = Project {
                 id: project["id"].take_string().unwrap(),
-                file: project["file"].take_string().unwrap(),
                 title: project["title"].take_string().unwrap(),
                 github_link: project["github_link"].take_string().unwrap(),
-                content
+                content,
+                thumbnail: project["thumbnail"].take_string()
             };
             projects.push(temp_project);
         }

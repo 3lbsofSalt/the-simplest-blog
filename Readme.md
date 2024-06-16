@@ -5,3 +5,5 @@ There is no need to manage a giant behemoth of a website. This blog runs off of 
 ## Dev Environment
 
 Run `cargo run` and `tailwindcss -i styles/tailwind.css -o assets/main.css --watch`.
+
+## The structure of the index files

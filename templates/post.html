@@ -2,5 +2,11 @@
   class="m-4"
 >
   <div class="text-4xl">{{ post.title }}</div>
+  {% if post.thumbnail.is_some() %}
+  <img 
+    class="object-cover h-60 aspect-square m-4"
+    src="{{post.thumbnail.as_ref().unwrap()}}"
+  ></img>
+  {% endif %}
   <div>{{ post.content }}</div>
 </div>

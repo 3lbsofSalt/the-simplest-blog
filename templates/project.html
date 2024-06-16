@@ -2,6 +2,15 @@
   class="m-4"
 >
   <div class="text-4xl">{{ project.title }}</div>
-  <a href="{{project.github_link}}">{{ project.github_link }}</a>
+  {% if project.thumbnail.is_some() %}
+  <img 
+    class="object-cover h-60 aspect-square m-4"
+    src="{{project.thumbnail.as_ref().unwrap()}}"
+  ></img>
+  {% endif %}
+  <a 
+    href="{{project.github_link}}"
+    class="hover:underline"
+  >{{ project.github_link }}</a>
   <div>{{ project.content }}</div>
 </div>

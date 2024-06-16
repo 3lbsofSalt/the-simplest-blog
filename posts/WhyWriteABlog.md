@@ -9,6 +9,8 @@ movie reviews, I will rant about things that bother me, I will attempt to explai
 interesting and important. My fondest hope is that I focus on writing a lot of well structured and helpful programming
 articles. If you were looking for a homogeneous blog about a single topic, I'm sorry, you've come to the wrong place.
 
+<img src="/assets/images/posts/why-blog/bear-sailor.jpg"></img>
+
 ## Why am I writing a blog?
 
 I have always been a voracious reader. When I was younger this took the form of fiction and fantasy. As I've gotten
