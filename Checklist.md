@@ -1,0 +1,3 @@
+- [ ] Allow for thumbnails in the projects and posts
+- [ ] Newest first (so add id's and just make it show up in order)
+- [ ] Deal with tags

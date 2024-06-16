@@ -1,6 +1,13 @@
 {
   "projects": [
     {
+      "id": "simplest-blog",
+      "file": "the-simplest-blog.md",
+      "github_link": "https://github.com/3lbsofSalt/the-simplest-blog",
+      "title": "The Simplest Blog"
+    },
+    {
+      "id": "aurelius-ecommerce",
       "file": "aurelius-ecommerce.md",
       "github_link": "https://github.com/3lbsofSalt/aurelius-ecommerce",
       "title": "Aurelius E-Commerce Platform"
