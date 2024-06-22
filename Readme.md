@@ -3,9 +3,14 @@
 There is no need to manage a giant behemoth of a website. This blog runs off of markdown and json files.
 Feel free to fork this repo to start your own blog!
 
-## Dev Environment
+## Running
+### Dev Environment
 
-Run `cargo run` and `tailwindcss -i styles/tailwind.css -o assets/main.css --watch`.
+Run `cargo watch -x run` and `tailwindcss -i styles/tailwind.css -o assets/main.css --watch`.
+
+### Production Environment
+
+Run `cargo run`
 
 ## The structure of the index files
 
