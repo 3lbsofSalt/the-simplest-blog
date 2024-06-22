@@ -3,10 +3,14 @@
 >
   <div class="text-4xl">{{ post.title }}</div>
   {% if post.thumbnail.is_some() %}
-  <img 
-    class="object-cover h-60 aspect-square m-4"
-    src="{{post.thumbnail.as_ref().unwrap()}}"
-  ></img>
+  <div
+    class="w-full flex justify-center"
+  >
+    <img 
+      class="object-cover h-60 aspect-square m-4"
+      src="/assets/images/{{post.thumbnail.as_ref().unwrap()}}"
+    ></img>
+  </div>
   {% endif %}
   <div>{{ post.content }}</div>
 </div>

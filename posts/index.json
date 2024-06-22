@@ -1,33 +1,18 @@
 {
-  "available tags": [
-    { "name": "Book Review"}, 
-    { "name": "Programming" }
+  "available_tags": [
+    { "name": "A Tag" }, 
+    { "name": "Another Tag" }
   ],
   "posts": [
     {
-      "id": "trying-out",
-      "file": "TryingThisOut.md",
-      "title": "Trying This Out",
+      "id": "a_unique_post_id",
+      "file": "NameOfYourFile.md",
+      "title": "The Title of Your Post",
       "tags": [
-        { "name": "Book Review" },
-        { "name": "Programming" }
+        { "name": "A Tag" }
       ],
-      "publish_date": "05-22-2024"
-    },
-    {
-      "id": "second-file",
-      "file": "SecondFile.md",
-      "title": "Second File",
-      "tags": [],
-      "publish_date": "05-20-2024"
-    },
-    {
-      "id": "why-write",
-      "file": "WhyWriteABlog.md",
-      "title": "Why Am I Writing A Blog?",
-      "tags": [],
-      "publish_date": "TBD",
-      "thumbnail": "/assets/images/posts/why-blog/bear-sailor.jpg"
+      "publish_date": "A String Representing the Publish Date",
+      "thumbnail": "createdwith.jpeg"
     }
   ]
 }

@@ -3,14 +3,19 @@
 >
   <div class="text-4xl">{{ project.title }}</div>
   {% if project.thumbnail.is_some() %}
-  <img 
-    class="object-cover h-60 aspect-square m-4"
-    src="{{project.thumbnail.as_ref().unwrap()}}"
-  ></img>
+  <div
+    class="w-full flex justify-center"
+  >
+    <img 
+      class="object-cover h-60 aspect-square m-4"
+      src="/assets/images/{{project.thumbnail.as_ref().unwrap()}}"
+    ></img>
+  </div>
   {% endif %}
-  <a 
-    href="{{project.github_link}}"
-    class="hover:underline"
-  >{{ project.github_link }}</a>
+  <div class="font-bold my-2">
+    Source: <a 
+      href="{{project.github_link}}"
+    >{{ project.github_link }}</a>
+  </div>
   <div>{{ project.content }}</div>
 </div>

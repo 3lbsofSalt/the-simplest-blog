@@ -1,30 +1,47 @@
 {% for post in posts %}
 <div 
-  class="m-2 p-2 shadow-md hover:cursor-pointer" 
-  hx-get="/post/{{post.id}}" 
-  hx-target="#content"
-  hx-push-url="true"
+  class="m-2 p-3 shadow-md border-2 border-neutral-700" 
 >
-  <div class="text-2xl">{{ post.title }}</div>
+  <div 
+    class="text-2xl hover:cursor-pointer" 
+    hx-get="/post/{{post.id}}" 
+    hx-target="#content"
+    hx-push-url="true"
+  >{{ post.title }}</div>
   <div class="text-xs ml-1">{{ post.publish_date }}</div>
-  <div class="flex flex-row">
+  <div class="flex flex-col md:flex-row items-center">
     {% if post.thumbnail.is_some() %}
     <img 
-      class="object-cover h-24 aspect-square m-4"
-      src="{{post.thumbnail.as_ref().unwrap()}}"
+      class="object-cover h-32 w-32 md:h-24 md:w-24 aspect-square m-4"
+      src="/assets/images/{{post.thumbnail.as_ref().unwrap()}}"
     ></img>
     {% endif %}
     <div class="m-2 ml-4 flex flex-col justify-between">
       <div>{{ post.content|truncate(200) }}</div>
-      <div class="flex flex-row items-center mt-2">
-        <div>Tags: </div>
-        {% for tag in post.tags %}
-        <div class="ml-2 text-sm font-bold p-1 rounded-md border-2 border-white">{{ tag }}</div>
-        {% endfor %}
-        {% if post.tags.is_empty() %}
-        <div class="ml-2 font-bold">None</div>
-        {% endif %}
-      </div>
+    </div>
+  </div>
+  <div class="flex flex-row justify-between items-center m-1">
+    <div class="flex flex-row flex-wrap items-center">
+      <div>Tags: </div>
+      {% for tag in post.tags %}
+      <a 
+        class="ml-1 mt-1 text-sm font-bold p-1 hover:cursor-pointer"
+        hx-get="/tag/{{ tag }}"
+        hx-target="#content"
+        hx-push-url="true"
+      >{{ tag }}</a>
+      {% endfor %}
+      {% if post.tags.is_empty() %}
+      <div class="ml-2 font-bold">None</div>
+      {% endif %}
+    </div>
+    <div
+      class="hover:cursor-pointer p-1 text-sm text-nowrap font-bold rounded-md border-2 border-neutral-700 hover:border-neutral-600" 
+      hx-get="/post/{{post.id}}" 
+      hx-target="#content"
+      hx-push-url="true"
+    >
+      View Post
     </div>
   </div>
 </div>

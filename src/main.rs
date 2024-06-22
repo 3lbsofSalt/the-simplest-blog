@@ -36,6 +36,7 @@ async fn main() -> anyhow::Result<()> {
         .route("/projects", get(projects))
         .route("/project/:index", get(project))
         .route("/about", get(about))
+        .route("/tag/:tag", get(tag))
         .nest_service(
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap()))
@@ -162,6 +163,39 @@ async fn posts(headers: HeaderMap) -> impl IntoResponse {
 
 }
 
+async fn tag(Path(tag): Path<String>, headers: HeaderMap) -> impl IntoResponse {
+    if headers.contains_key("HX-Request") {
+        let post_index: String = fs::read_to_string("posts/index.json").unwrap();
+        let mut post_index = json::parse(post_index.as_str()).unwrap();
+
+        let mut posts: Vec<Post> = Vec::new();
+
+        for post in post_index["posts"].members_mut() {
+            if !post["tags"].members().any(|tag_tmp| { tag_tmp["name"].as_str().unwrap().eq(tag.as_str()) }) { 
+                continue 
+            };
+            let content = fs::read_to_string(format!("posts/{}", post["file"])).unwrap();
+            let temp_post = Post { 
+                id: post["id"].take_string().unwrap(),
+                title: post["title"].take_string().unwrap(), 
+                content: content.to_string(),
+                tags: post["tags"].members_mut().map(|tag| { tag["name"].take_string().unwrap() }).collect(),
+                publish_date: post["publish_date"].take_string().unwrap(),
+                thumbnail: post["thumbnail"].take_string()
+            };
+            posts.push(temp_post);
+        }
+
+        let template = PostsTemplate { posts };
+        let reply_html = template.render().unwrap();
+
+        Html(reply_html).into_response()
+
+    } else {
+        index_with_url(format!("/tag/{}", tag)).await.into_response()
+    }
+}
+
 
 struct Project {
     id: String,
@@ -254,3 +288,4 @@ async fn about(headers: HeaderMap) -> impl IntoResponse {
         index_with_url("/about".to_string()).await.into_response()
     }
 }
+

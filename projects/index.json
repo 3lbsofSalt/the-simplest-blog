@@ -1,17 +1,11 @@
 {
   "projects": [
     {
-      "id": "simplest-blog",
-      "file": "the-simplest-blog.md",
+      "id": "a_unique_project_id",
+      "file": "file_for_project_post.md",
       "github_link": "https://github.com/3lbsofSalt/the-simplest-blog",
-      "title": "The Simplest Blog",
-      "thumbnail": "/assets/images/posts/why-blog/bear-sailor.jpg"
-    },
-    {
-      "id": "aurelius-ecommerce",
-      "file": "aurelius-ecommerce.md",
-      "github_link": "https://github.com/3lbsofSalt/aurelius-ecommerce",
-      "title": "Aurelius E-Commerce Platform"
+      "title": "The Title of Your Post",
+      "thumbnail": "createdwith.jpeg"
     }
   ]
 }

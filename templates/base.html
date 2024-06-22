@@ -5,6 +5,7 @@
     <link href="/assets/Chakra_Petch/ChakraPetch.css" rel="stylesheet" />
     <title>{% block title %}{{ title }}{% endblock %}</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/assets/htmx.min.js"></script>
 
     {% block head %}{% endblock %}
@@ -19,19 +20,19 @@
         <div class="text-6xl text-center my-4">Buckets of Salt</div>
         <div class="flex justify-around w-full">
           <div
-            class="hover:cursor-pointer"
+            class="hover:cursor-pointer text-sm text-nowrap p-2 font-bold border-2 border-neutral-700 hover:border-neutral-600"
             hx-get="/posts"
             hx-target="#content"
             hx-push-url="true"
           >Posts</div>
           <div
-            class="hover:cursor-pointer"
+            class="hover:cursor-pointer text-sm text-nowrap p-2 font-bold border-2 border-neutral-700 hover:border-neutral-600"
             hx-get="/projects"
             hx-target="#content"
             hx-push-url="true"
           >Projects</div>
           <div
-            class="hover:cursor-pointer"
+            class="hover:cursor-pointer text-sm text-nowrap p-2 font-bold border-2 border-neutral-700 hover:border-neutral-600"
             hx-get="/about"
             hx-target="#content"
             hx-push-url="true"
