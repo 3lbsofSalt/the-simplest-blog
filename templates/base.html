@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link href="/assets/main.css" rel="stylesheet" />
+    <link href="/assets/syntax_highlighting/prism.css" rel="stylesheet" />
     <link href="/assets/Chakra_Petch/ChakraPetch.css" rel="stylesheet" />
     <title>{% block title %}{{ title }}{% endblock %}</title>
 
@@ -43,5 +44,7 @@
         </div>
       </div>
     </div>
+    <script src="/assets/syntax_highlighting/prism.js"></script>
+    <script> document.body.addEventListener('htmx:afterOnLoad', function() { Prism.highlightAll(); }); </script>
   </body>
 </html>
